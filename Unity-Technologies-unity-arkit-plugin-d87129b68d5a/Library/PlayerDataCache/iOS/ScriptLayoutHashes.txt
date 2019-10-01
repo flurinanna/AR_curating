@@ -1,8 +1,9 @@
 iOS
 PlayerPath?
-/Users/annakalin/Desktop/AR/Unity-Technologies-unity-arkit-plugin-d87129b68d5a/verticalPlanePicturePosition
+/Users/annakalin/Desktop/AR/verticalPlanePicturePosition
 SceneListBegin?
 Assets/UnityARKitPlugin/Examples/UnityARKitScene/UnityARKitScene.unity
+Assets/UnityARKitPlugin/ARKitRemote/UnityARKitRemote.unity
 SceneListEnd?
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:UnityEngine.XR.iOS.UnityARKitControl
 984dcc0ba3707b7691fbdca8ff508d28 Unity.TextMeshPro.dll:TMPro.TMP_SelectionCaret
@@ -57,6 +58,7 @@ abf1930d8126d0b2e00e9449129a0190 UnityEngine.UI.dll:UnityEngine.EventSystems.Tou
 64e54c0cbb0177c5ea26f340efb9ff85 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
 00de963d957d90979dd1b21dcac2c325 Assembly-CSharp.dll:UnityEngine.XR.iOS.UnityARHitTestExample
 98ad81e9f689a492509f07e75b810aaa Unity.TextMeshPro.dll:TMPro.TMP_InputField
+1b2695beb2f11ec8bb8296badff394e5 Assembly-CSharp.dll:.ChooseFrame
 649dddd003fb3b1472517ebb21b5a8af Assembly-CSharp.dll:.ColorLabel
 cf9f5cf2c3145a37ac07f00e50e460f9 UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
@@ -206,4 +208,3 @@ cc93643c5ba300cda12aa2a6816653f0 Assembly-CSharp.dll:.ARReferenceImage
 9379c41cebb5b89db51d17cc73b4c3f9 Assembly-CSharp.dll:.ARKitPlaneMeshRender
 3edf99f1f23f40846178ab8f08418322 Assembly-CSharp.dll:.UnityPointCloudExample
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.UnityARCameraNearFar
-1b2695beb2f11ec8bb8296badff394e5 Assembly-CSharp.dll:.ChooseFrame
