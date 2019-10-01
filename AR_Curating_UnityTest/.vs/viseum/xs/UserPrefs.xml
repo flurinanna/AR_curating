@@ -1,0 +1,31 @@
+﻿<Properties StartupConfiguration="{537A664C-0C2C-9054-EE48-F46D24584A4A}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/CameraDrag.cs">
+    <Files>
+      <File FileName="Assets/TopicsManager.cs" Line="31" Column="54" />
+      <File FileName="Assets/Preselection.cs" Line="44" Column="13" />
+      <File FileName="Assets/ARKit/Helpers/UnityARUtility.cs" Line="44" Column="14" />
+      <File FileName="Assets/UIManagerScript.cs" Line="105" Column="44" />
+      <File FileName="Assets/DetailTextLoader.cs" Line="31" Column="55" />
+      <File FileName="Assets/PictureGenerator.cs" Line="443" Column="78" />
+      <File FileName="Assets/ChooseFrame.cs" Line="30" Column="9" />
+      <File FileName="Assets/Character.cs" Line="14" Column="52" />
+      <File FileName="Assets/ARKit/Helpers/UnityARCameraNearFar.cs" Line="33" Column="1" />
+      <File FileName="Assets/ARKit/ARKitRemote/ARKitRemoteConnection.cs" Line="197" Column="52" />
+      <File FileName="Assets/DetailViewLoader.cs" Line="1" Column="1" />
+      <File FileName="Assets/JsonLoader.cs" Line="50" Column="23" />
+      <File FileName="Assets/CameraDrag.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/annakalin/Desktop/AR/AR_Curating_UnityTest/Assets/Exhibitions/ExhibitionModel.cs" relfile="Assets/Exhibitions/ExhibitionModel.cs" line="91" column="45" />
+      <Breakpoint file="/Users/annakalin/Desktop/AR/AR_Curating_UnityTest/Assets/ExhibitionPersister.cs" relfile="Assets/ExhibitionPersister.cs" line="38" column="1" />
+      <Breakpoint file="/Users/annakalin/Desktop/AR/AR_Curating_UnityTest/Assets/UIManagerScript.cs" relfile="Assets/UIManagerScript.cs" line="13" column="1" />
+      <Breakpoint file="/Users/annakalin/Desktop/AR/AR_Curating_UnityTest/Assets/PictureGenerator.cs" relfile="Assets/PictureGenerator.cs" line="441" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
