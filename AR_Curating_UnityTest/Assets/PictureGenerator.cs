@@ -63,60 +63,70 @@ public class PictureGenerator : MonoBehaviour
 
     private void Update()
     {
-        UpdatePlacementPose();
-     //  UpdatePlacementIndicator();
-        //if (picIsInitial)
-        //{
-        //    Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        //    RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction);
-        //    bool pictureNotPlacedYet = true;
-        //    foreach (RaycastHit hit in hits)
-        //    {
-        //        if (hit.collider.gameObject.tag.Equals("raum") && pictureNotPlacedYet && pic != null)
-        //        {
-        //            movePictureDirectly(pic, hit);
-        //            selectPicture(pic);
-        //            pictureNotPlacedYet = false;
-        //        }
-        //    }
-        //    if (pictureNotPlacedYet)
-        //    {   
-        //        Material image = null;
-        //        Transform tPlayer = GameObject.Find("player").transform;
-        //        if (pic != null) 
-        //        {
-        //            pic.transform.rotation = tPlayer.rotation;
-        //            pic.transform.Rotate(0, 90, 0);
-        //            image = pic.GetComponent<MeshRenderer>().materials[0];
+        var screenCenter = cam.ViewportToScreenPoint(new Vector3(0.5f, 0.5f, 0.5f));
+        var hits = new List<ARRaycastHit>();
+        aRRaycastManager.Raycast(screenCenter, hits, UnityEngine.XR.ARSubsystems.TrackableType.Planes);
+        placementPoseIsValid = hits.Count > 0;
+        if (placementPoseIsValid)
+        {
+            placementPose = hits[0].pose;
+        }
+
+
+        //  UpdatePlacementIndicator();
+        if (picIsInitial)
+        {
+
+            //Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            //RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction);
+            bool pictureNotPlacedYet = true;
+            foreach (ARRaycastHit hit in hits)
+            {
+                if (pictureNotPlacedYet && pic != null)
+                {
+                    movePictureDirectly(pic, hit);
+                    selectPicture(pic);
+                    pictureNotPlacedYet = false;
+                }
+            }
+            if (pictureNotPlacedYet)
+            {   
+                Material image = null;
+                Transform tPlayer = GameObject.Find("AR Raycast Manager").transform;
+                if (pic != null) 
+                {
+                    pic.transform.rotation = tPlayer.rotation;
+                    pic.transform.Rotate(0, 90, 0);
+                    image = pic.GetComponent<MeshRenderer>().materials[0];
                 
 
-        //            if (image != null && image.mainTexture != null)
-        //            {
-        //                float scale = Math.Min(2000f / image.mainTexture.width, 1000f / image.mainTexture.height);
-        //                if (scale > 1)
-        //                {
-        //                    pic.transform.position = tPlayer.position + tPlayer.forward * scale;
-        //                }
-        //                else {
-        //                    pic.transform.position = tPlayer.position + tPlayer.forward * 2f;
-        //                }
-        //            }
-        //            else
-        //            {
-        //                pic.transform.position = tPlayer.position + tPlayer.forward * 0.5f;
-        //            }
-        //            pic.GetComponent<Outline>().OutlineColor = RED;
-        //        }
-        //    } else
-        //    {
-        //        if (Input.GetMouseButtonUp(0) && !pictureNotPlacedYet)
-        //        {
-        //            savePicture(pic);
-        //            pic = null;
-        //            picIsInitial = false;
-        //        }
-        //    }
-        //}
+                    if (image != null && image.mainTexture != null)
+                    {
+                        float scale = Math.Min(2000f / image.mainTexture.width, 1000f / image.mainTexture.height);
+                        if (scale > 1)
+                        {
+                            pic.transform.position = tPlayer.position + tPlayer.forward * scale;
+                        }
+                        else {
+                            pic.transform.position = tPlayer.position + tPlayer.forward * 2f;
+                        }
+                    }
+                    else
+                    {
+                        pic.transform.position = tPlayer.position + tPlayer.forward * 0.5f;
+                    }
+                    pic.GetComponent<Outline>().OutlineColor = RED;
+                }
+            } else
+            {
+                if (Input.GetMouseButtonUp(0) && !pictureNotPlacedYet)
+                {
+                    savePicture(pic);
+                    pic = null;
+                    picIsInitial = false;
+                }
+            }
+        }
         //else if (Input.touchCount < 2) {
         //    if (pic == null && Input.GetMouseButtonDown(0))
         //    {
@@ -344,13 +354,13 @@ public class PictureGenerator : MonoBehaviour
         }
     }
 
-    private void movePicture(GameObject picture, RaycastHit hit)
+    private void movePicture(GameObject picture, ARRaycastHit hit)
     {
         Transform t = picture.transform;
-        t.rotation = Quaternion.LookRotation(hit.normal, Vector3.up);
+        t.rotation =  Quaternion.LookRotation(hit.pose.forward, Vector3.up);
         t.Rotate(new Vector3(0, 90, 0));
-        t.position = hit.point;
-        t.Translate(hit.normal * t.localScale.x * 0.5f);
+        t.position = hit.pose.position;
+        t.Translate(hit.pose.forward * t.localScale.x * 0.5f);
         Vector3 rotated = Quaternion.Euler(0, t.eulerAngles.y, 0) * relativePicturePositionX;
         if (t.eulerAngles.y < 180)
         {
@@ -361,12 +371,12 @@ public class PictureGenerator : MonoBehaviour
     }
 
 
-    private void movePictureDirectly(GameObject picture, RaycastHit hit)
+    private void movePictureDirectly(GameObject picture, ARRaycastHit hit)
     {
-        picture.transform.rotation = Quaternion.LookRotation(hit.normal, Vector3.up);
+        picture.transform.rotation = Quaternion.LookRotation(hit.pose.forward, Vector3.up);
         picture.transform.Rotate(new Vector3(0, 90, 0));
-        picture.transform.position = hit.point;
-        picture.transform.Translate(hit.normal * picture.transform.localScale.x * 0.5f);
+        picture.transform.position = hit.pose.position;
+        picture.transform.Translate(hit.pose.forward * picture.transform.localScale.x * 0.5f);
     }
 
     public void createPictureOnWall(Picture pictureInfo)
@@ -376,7 +386,7 @@ public class PictureGenerator : MonoBehaviour
             saveCurrentPicture();
         }
 
-        Transform t = GameObject.Find("player").transform;
+        Transform t = GameObject.Find("AR Raycast Manager").transform;
         GameObject pictureToPlace = Instantiate(prefab, t.position, Quaternion.identity) as GameObject;
         pictureToPlace.name = pictureInfo.Bildcode;
         pictureToPlace.transform.parent = GameObject.Find("pictureholder").transform;
@@ -438,14 +448,7 @@ public class PictureGenerator : MonoBehaviour
 
     private void UpdatePlacementPose()
     {
-        var screenCenter = cam.ViewportToScreenPoint(new Vector3(0.5f, 0.5f, 0.5f));
-        var hits = new List<ARRaycastHit>();
-        aRRaycastManager.Raycast(screenCenter, hits, UnityEngine.XR.ARSubsystems.TrackableType.Planes);
-        placementPoseIsValid = hits.Count > 0;
-        if (placementPoseIsValid)
-        {
-            placementPose = hits[0].pose;
-        }
+
     }
 
 
