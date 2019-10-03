@@ -73,6 +73,7 @@ public class PictureGenerator : MonoBehaviour
             if (placementPoseIsValid)
             {
                 placementPose = hits[0].pose;
+                Debug.Log("placementPose" + placementPose);
             }
 
             //Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
@@ -82,6 +83,7 @@ public class PictureGenerator : MonoBehaviour
             {
                 if (pictureNotPlacedYet && pic != null)
                 {
+                    Debug.Log("hit" + hit);
                     movePictureDirectly(pic, hit);
                     selectPicture(pic);
                     pictureNotPlacedYet = false;

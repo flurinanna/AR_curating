@@ -41,10 +41,10 @@ public class DetailViewLoader : MonoBehaviour
             image.SetNativeSize();
             if(tex.height < tex.width)
             {
-                image.rectTransform.sizeDelta = new Vector2(1700, (float)tex.height / (float)tex.width * 1700);
+                image.rectTransform.sizeDelta = new Vector2(1000, (float)tex.height / (float)tex.width * 1000);
             } else
             {
-                image.rectTransform.sizeDelta = new Vector2((float)tex.width / (float)tex.height * 1700, 1700);
+                image.rectTransform.sizeDelta = new Vector2((float)tex.width / (float)tex.height * 1000, 1000);
             }
 
         }
