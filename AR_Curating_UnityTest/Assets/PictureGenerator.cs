@@ -63,19 +63,17 @@ public class PictureGenerator : MonoBehaviour
 
     private void Update()
     {
-        var screenCenter = cam.ViewportToScreenPoint(new Vector3(0.5f, 0.5f, 0.5f));
-        var hits = new List<ARRaycastHit>();
-        aRRaycastManager.Raycast(screenCenter, hits, UnityEngine.XR.ARSubsystems.TrackableType.Planes);
-        placementPoseIsValid = hits.Count > 0;
-        if (placementPoseIsValid)
-        {
-            placementPose = hits[0].pose;
-        }
-
-
         //  UpdatePlacementIndicator();
         if (picIsInitial)
         {
+            var screenCenter = cam.ViewportToScreenPoint(new Vector3(0.5f, 0.5f, 0.5f));
+            var hits = new List<ARRaycastHit>();
+            aRRaycastManager.Raycast(screenCenter, hits, UnityEngine.XR.ARSubsystems.TrackableType.Planes);
+            placementPoseIsValid = hits.Count > 0;
+            if (placementPoseIsValid)
+            {
+                placementPose = hits[0].pose;
+            }
 
             //Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             //RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction);
@@ -127,193 +125,193 @@ public class PictureGenerator : MonoBehaviour
                 }
             }
         }
-        //else if (Input.touchCount < 2) {
-        //    if (pic == null && Input.GetMouseButtonDown(0))
-        //    {
-        //        bool noCanvasHitted = true;
-        //        //Set up the new Pointer Event
-        //        m_PointerEventData = new PointerEventData(m_EventSystem);
-        //        //Set the Pointer Event Position to that of the mouse position
-        //        m_PointerEventData.position = Input.mousePosition;
+        else if (Input.touchCount < 2) {
+            if (pic == null && Input.GetMouseButtonDown(0))
+            {
+                bool noCanvasHitted = true;
+                //Set up the new Pointer Event
+                m_PointerEventData = new PointerEventData(m_EventSystem);
+                //Set the Pointer Event Position to that of the mouse position
+                m_PointerEventData.position = Input.mousePosition;
 
-        //        //Create a list of Raycast Results
-        //        List<RaycastResult> results = new List<RaycastResult>();
+                //Create a list of Raycast Results
+                List<RaycastResult> results = new List<RaycastResult>();
 
-        //        //Raycast using the Graphics Raycaster and mouse click position
-        //        m_Raycaster.Raycast(m_PointerEventData, results);
+                //Raycast using the Graphics Raycaster and mouse click position
+                m_Raycaster.Raycast(m_PointerEventData, results);
 
-        //        //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
-        //        if (results.Count > 0)
-        //        {
-        //            noCanvasHitted = false;
-        //        }
+                //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
+                if (results.Count > 0)
+                {
+                    noCanvasHitted = false;
+                }
 
-        //        if (noCanvasHitted)
-        //        {
-        //         //   Debug.Log("Button Down");
-        //            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        //            RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction);
-        //            foreach (RaycastHit hit in hits)
-        //            {
-        //                GameObject o = hit.collider.gameObject;
-        //                if (o.tag.Equals("picture"))
-        //                {
-        //                    picMayBeClicked = true;
-        //         //           Debug.Log("Button Down on Picture");
-        //                    screenHitPoint = Input.mousePosition;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    else if (pic == null && Input.GetMouseButtonUp(0))
-        //    {
-        //     //   Debug.Log("Button Up");
-        //        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        //        RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction);
-        //        bool noPictureHittedYet = true;
-        //        foreach (RaycastHit hit in hits)
-        //        {
-        //            if (noPictureHittedYet) {
-        //                GameObject o = hit.collider.gameObject;
-        //                if (o.tag.Equals("picture") && Input.mousePosition.Equals(screenHitPoint))
-        //                {
-        //                    noPictureHittedYet = false;
-        //                    selectPicture(o);
-        //                }
-        //            }
-        //        }
+                if (noCanvasHitted)
+                {
+                 //   Debug.Log("Button Down");
+                    Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction);
+                    foreach (RaycastHit hit in hits)
+                    {
+                        GameObject o = hit.collider.gameObject;
+                        if (o.tag.Equals("picture"))
+                        {
+                            picMayBeClicked = true;
+                 //           Debug.Log("Button Down on Picture");
+                            screenHitPoint = Input.mousePosition;
+                        }
+                    }
+                }
+            }
+            else if (pic == null && Input.GetMouseButtonUp(0))
+            {
+             //   Debug.Log("Button Up");
+                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction);
+                bool noPictureHittedYet = true;
+                foreach (RaycastHit hit in hits)
+                {
+                    if (noPictureHittedYet) {
+                        GameObject o = hit.collider.gameObject;
+                        if (o.tag.Equals("picture") && Input.mousePosition.Equals(screenHitPoint))
+                        {
+                            noPictureHittedYet = false;
+                            selectPicture(o);
+                        }
+                    }
+                }
 
-        //    }
-        //    else if (pic != null && Input.GetMouseButtonDown(0))
-        //    {
-        //        bool noCanvasHitted = true;
-        //        //Set up the new Pointer Event
-        //        m_PointerEventData = new PointerEventData(m_EventSystem);
-        //        //Set the Pointer Event Position to that of the mouse position
-        //        m_PointerEventData.position = Input.mousePosition;
+            }
+            else if (pic != null && Input.GetMouseButtonDown(0))
+            {
+                bool noCanvasHitted = true;
+                //Set up the new Pointer Event
+                m_PointerEventData = new PointerEventData(m_EventSystem);
+                //Set the Pointer Event Position to that of the mouse position
+                m_PointerEventData.position = Input.mousePosition;
 
-        //        //Create a list of Raycast Results
-        //        List<RaycastResult> results = new List<RaycastResult>();
+                //Create a list of Raycast Results
+                List<RaycastResult> results = new List<RaycastResult>();
 
-        //        //Raycast using the Graphics Raycaster and mouse click position
-        //        m_Raycaster.Raycast(m_PointerEventData, results);
+                //Raycast using the Graphics Raycaster and mouse click position
+                m_Raycaster.Raycast(m_PointerEventData, results);
 
-        //        //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
-        //        if (results.Count > 0)
-        //        {
-        //            noCanvasHitted = false;
-        //        }
+                //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
+                if (results.Count > 0)
+                {
+                    noCanvasHitted = false;
+                }
 
-        //        if (noCanvasHitted)
-        //        {
-        //       //     Debug.Log("Button Down, pic not null");
-        //            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                if (noCanvasHitted)
+                {
+               //     Debug.Log("Button Down, pic not null");
+                    Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
-        //            RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction);
-        //            bool noPictureHittedYet = true;
-        //            screenHitPoint = Input.mousePosition;
-        //            foreach (RaycastHit hit in hits)
-        //            {
-        //                if (noPictureHittedYet)
-        //                {
-        //                    GameObject o = hit.collider.gameObject;
-        //                    if (o == pic)
-        //                    {
-        //                        noPictureHittedYet = false;
-        //                        picMayBeClicked = true;
-        //                        dragging = true;
-        //                        relativePicturePositionX = Quaternion.Euler(0, -o.transform.eulerAngles.y, 0) * Vector3.Scale(hit.point - o.transform.position, Vector3.Cross(o.transform.up, hit.normal).normalized);
-        //                        relativePicturePositionY = Vector3.Scale(hit.point - o.transform.position, o.transform.up.normalized);
+                    RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction);
+                    bool noPictureHittedYet = true;
+                    screenHitPoint = Input.mousePosition;
+                    foreach (RaycastHit hit in hits)
+                    {
+                        if (noPictureHittedYet)
+                        {
+                            GameObject o = hit.collider.gameObject;
+                            if (o == pic)
+                            {
+                                noPictureHittedYet = false;
+                                picMayBeClicked = true;
+                                dragging = true;
+                                relativePicturePositionX = Quaternion.Euler(0, -o.transform.eulerAngles.y, 0) * Vector3.Scale(hit.point - o.transform.position, Vector3.Cross(o.transform.up, hit.normal).normalized);
+                                relativePicturePositionY = Vector3.Scale(hit.point - o.transform.position, o.transform.up.normalized);
 
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //    else if (pic != null && Input.GetMouseButtonUp(0))
-        //    {
+                            }
+                        }
+                    }
+                }
+            }
+            else if (pic != null && Input.GetMouseButtonUp(0))
+            {
 
-        //        if (Input.mousePosition.Equals(screenHitPoint))
-        //        {
-        //        //    Debug.Log("clicked Pic not null");
-        //            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                if (Input.mousePosition.Equals(screenHitPoint))
+                {
+                //    Debug.Log("clicked Pic not null");
+                    Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
-        //            RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction);
-        //            bool noPictureHittedYet = true;
-        //            foreach (RaycastHit hit in hits)
-        //            {
-        //                GameObject o = hit.collider.gameObject;
+                    RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction);
+                    bool noPictureHittedYet = true;
+                    foreach (RaycastHit hit in hits)
+                    {
+                        GameObject o = hit.collider.gameObject;
 
-        //                if (o.tag.Equals("picture") && noPictureHittedYet)
-        //                {
-        //                    noPictureHittedYet = false;
-        //                    if (o == pic)
-        //                    {
-        //                        savePicture(pic);
-        //                        pic = null;
-        //                    }
-        //                    else
-        //                    {
-        //                        savePicture(pic);
-        //                        pic = null;
-        //                        selectPicture(o);
-        //                    }
-        //                }
-        //            }
+                        if (o.tag.Equals("picture") && noPictureHittedYet)
+                        {
+                            noPictureHittedYet = false;
+                            if (o == pic)
+                            {
+                                savePicture(pic);
+                                pic = null;
+                            }
+                            else
+                            {
+                                savePicture(pic);
+                                pic = null;
+                                selectPicture(o);
+                            }
+                        }
+                    }
 
-        //            if (noPictureHittedYet)
-        //            {
-        //                savePicture(pic);
-        //                pic = null;
-        //            }
-        //        }
+                    if (noPictureHittedYet)
+                    {
+                        savePicture(pic);
+                        pic = null;
+                    }
+                }
 
-        //        picMayBeClicked = false;
-        //        dragging = false;
-        //    }
-        //    else if(dragging && !picMayBeClicked && !UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals("ViewExhibition"))
-        //    {
-        //        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                picMayBeClicked = false;
+                dragging = false;
+            }
+            //else if(dragging && !picMayBeClicked && !UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals("ViewExhibition"))
+            //{
+            //    Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
-        //        RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction);
-        //        foreach (RaycastHit hit in hits)
-        //        {
-        //            if (hit.collider.gameObject.tag.Equals("raum"))
-        //            {
-        //                movePicture(pic, hit);
-        //            }
-        //        }
+            //    RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction);
+            //    foreach (RaycastHit hit in hits)
+            //    {
+            //        if (hit.collider.gameObject.tag.Equals("raum"))
+            //        {
+            //            movePicture(pic, hit);
+            //        }
+            //    }
 
-        //        //Rotation while dragging picture
-        //        float rotationArea = 400f;
+            //    //Rotation while dragging picture
+            //    float rotationArea = 400f;
                 
-        //        if (Input.mousePosition.x > Screen.width - rotationArea)
-        //        {
-        //            characterController.transform.Rotate(new Vector3(0, 1, 0) * (Input.mousePosition.x - Screen.width + rotationArea) * 0.005f);
-        //        }
-        //        else if (Input.mousePosition.x < 0 + rotationArea)
-        //        {
-        //            characterController.transform.Rotate(new Vector3(0, 1, 0) * (Input.mousePosition.x - rotationArea) * 0.005f);
-        //        }
+            //    if (Input.mousePosition.x > Screen.width - rotationArea)
+            //    {
+            //        characterController.transform.Rotate(new Vector3(0, 1, 0) * (Input.mousePosition.x - Screen.width + rotationArea) * 0.005f);
+            //    }
+            //    else if (Input.mousePosition.x < 0 + rotationArea)
+            //    {
+            //        characterController.transform.Rotate(new Vector3(0, 1, 0) * (Input.mousePosition.x - rotationArea) * 0.005f);
+            //    }
 
-        //        if (Input.mousePosition.y > Screen.height - rotationArea)
-        //        {
-        //            characterController.transform.Rotate(new Vector3(-1, 0, 0) * (Input.mousePosition.y - (Screen.height - rotationArea)) * 0.005f);
-        //        }
-        //        else if (Input.mousePosition.y < 0 + rotationArea)
-        //        {
-        //            characterController.transform.Rotate(new Vector3(-1, 0, 0) * (Input.mousePosition.y - rotationArea) * 0.005f);
-        //        }
-        //    }
+            //    if (Input.mousePosition.y > Screen.height - rotationArea)
+            //    {
+            //        characterController.transform.Rotate(new Vector3(-1, 0, 0) * (Input.mousePosition.y - (Screen.height - rotationArea)) * 0.005f);
+            //    }
+            //    else if (Input.mousePosition.y < 0 + rotationArea)
+            //    {
+            //        characterController.transform.Rotate(new Vector3(-1, 0, 0) * (Input.mousePosition.y - rotationArea) * 0.005f);
+            //    }
+            //}
 
-        //    if (picMayBeClicked)
-        //    {
-        //        if (!Input.mousePosition.Equals(screenHitPoint))
-        //        {
-        //            picMayBeClicked = false;
-        //        }
-        //    }
-        //}
+            if (picMayBeClicked)
+            {
+                if (!Input.mousePosition.Equals(screenHitPoint))
+                {
+                    picMayBeClicked = false;
+                }
+            }
+        }
     }
 
     private void selectPicture(GameObject picture)
@@ -357,10 +355,10 @@ public class PictureGenerator : MonoBehaviour
     private void movePicture(GameObject picture, ARRaycastHit hit)
     {
         Transform t = picture.transform;
-        t.rotation =  Quaternion.LookRotation(hit.pose.forward, Vector3.up);
+        t.rotation =  Quaternion.LookRotation(hit.pose.up, Vector3.up);
         t.Rotate(new Vector3(0, 90, 0));
         t.position = hit.pose.position;
-        t.Translate(hit.pose.forward * t.localScale.x * 0.5f);
+        t.Translate(hit.pose.up * t.localScale.x * 0.5f);
         Vector3 rotated = Quaternion.Euler(0, t.eulerAngles.y, 0) * relativePicturePositionX;
         if (t.eulerAngles.y < 180)
         {
@@ -373,10 +371,10 @@ public class PictureGenerator : MonoBehaviour
 
     private void movePictureDirectly(GameObject picture, ARRaycastHit hit)
     {
-        picture.transform.rotation = Quaternion.LookRotation(hit.pose.forward, Vector3.up);
+        picture.transform.rotation = Quaternion.LookRotation(hit.pose.up, Vector3.up);
         picture.transform.Rotate(new Vector3(0, 90, 0));
         picture.transform.position = hit.pose.position;
-        picture.transform.Translate(hit.pose.forward * picture.transform.localScale.x * 0.5f);
+        picture.transform.Translate(hit.pose.up * picture.transform.localScale.x * 0.5f);
     }
 
     public void createPictureOnWall(Picture pictureInfo)
